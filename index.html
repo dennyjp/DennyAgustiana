@@ -285,9 +285,9 @@ footer{
 
 .team-cell{
   display:flex;
-  align-items:center;
-  gap:10px;
-  justify-content:center;
+  align-items:center; /* vertical center */
+  gap:10px;           /* jarak logo & teks */
+  justify-content:flex-start; /* teks mulai dari kiri, bukan center */
 }
 
 .team-logo{
@@ -298,8 +298,8 @@ footer{
   border:2px solid gold;
   box-shadow:0 0 10px gold,0 0 25px orange;
   animation:glow 2s infinite alternate;
+  flex-shrink:0;
 }
-
 @keyframes glow{
   from{ box-shadow:0 0 10px gold; }
   to{ box-shadow:0 0 30px gold,0 0 50px orange; }
