@@ -15,9 +15,11 @@
   font-family:'Trebuchet MS', sans-serif;
 }
 
-body{
-  color:white;
+html, body{
+  width:100%;
+  min-height:100%;
   overflow-x:hidden;
+  color:white;
   background:black;
 }
 
@@ -114,17 +116,16 @@ nav .hamburger{
 }
 
 /* SECTION */
-
 section{
   min-height:100vh;
-  padding:120px 20px;
+  padding:80px 15px;
   text-align:center;
   background-size:cover;
   background-position:center;
   position:relative;
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:flex-start;
   align-items:center;
   overflow:hidden;
   animation: zoomHero 18s ease-in-out infinite alternate;
@@ -314,6 +315,13 @@ footer{
 .top{
   background:linear-gradient(90deg,#111,#002244);
 }
+
+/* Responsive smaller sections */
+@media(max-width:600px){
+  h1{ font-size:28px; }
+  .card{ padding:20px; }
+  img{ width:120px; }
+}
 </style>
 </head>
 
@@ -330,9 +338,7 @@ footer{
     <a href="#pjok">PJOK</a>
     <a href="#ips">IPS</a>
   </div>
-  <div class="hamburger" id="hamburger">
-    <i class="fas fa-bars"></i>
-  </div>
+  <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
 </nav>
 
 <section id="home">
@@ -465,7 +471,7 @@ closeMenu.addEventListener('click', ()=>{
   navLinks.classList.remove('show');
 });
 
-// Sort table
+// Sort table by points
 function sortTable(){
   const table = document.getElementById("standings");
   const tbody = table.querySelector("tbody");
