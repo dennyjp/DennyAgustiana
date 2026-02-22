@@ -5,36 +5,148 @@
 <title>Team Participant - PA DENNY PJOK</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
-body{margin:0;font-family:'Trebuchet MS',sans-serif;background:#111;color:white;}
-nav{position:fixed;width:100%;background:rgba(0,0,0,0.85);padding:15px 20px;display:flex;justify-content:space-between;align-items:center;z-index:1000;border-bottom:2px solid gold;}
-nav .logo{color:gold;font-weight:bold;font-size:20px;}
-nav .nav-links a{color:gold;text-decoration:none;margin-left:15px;font-weight:bold;transition:0.3s;}
-nav .nav-links a:hover{color:#00f2ff;}
-section{padding:100px 20px;display:flex;flex-direction:column;align-items:center;}
-h1{color:gold;text-shadow:0 0 15px gold;margin-bottom:30px;}
-.card{background:linear-gradient(145deg,#112240,#0a192f);padding:25px;margin:15px;border-radius:15px;max-width:600px;width:90%;text-align:center;border:1px solid gold;box-shadow:0 0 15px gold;}
-.card img{width:120px;border-radius:50%;border:2px solid gold;margin-bottom:10px;}
-@media(max-width:600px){h1{font-size:28px;}.card img{width:100px;}}
+body{
+  margin:0;
+  font-family:'Trebuchet MS',sans-serif;
+  background:#111;
+  color:white;
+}
+
+nav{
+  position:fixed;
+  width:100%;
+  background:rgba(0,0,0,0.9);
+  padding:15px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  z-index:1000;
+  border-bottom:2px solid gold;
+}
+
+nav .logo{
+  color:gold;
+  font-weight:bold;
+  font-size:20px;
+}
+
+nav .nav-links a{
+  color:gold;
+  text-decoration:none;
+  margin-left:15px;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+nav .nav-links a:hover{
+  color:#00f2ff;
+}
+
+section{
+  padding:100px 20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+h1{
+  color:gold;
+  text-shadow:0 0 15px gold;
+  margin-bottom:30px;
+}
+
+.team-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+  gap:20px;
+  width:100%;
+  max-width:1000px;
+}
+
+.card{
+  background:linear-gradient(145deg,#112240,#0a192f);
+  padding:20px;
+  border-radius:15px;
+  text-align:center;
+  border:1px solid gold;
+  box-shadow:0 0 15px gold;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 0 25px gold;
+}
+
+.card img{
+  width:100px;
+  height:100px;
+  object-fit:cover;
+  border-radius:50%;
+  border:2px solid gold;
+  margin-bottom:10px;
+}
+
+@media(max-width:600px){
+  h1{font-size:26px;}
+}
 </style>
 </head>
 <body>
+
 <nav>
-<div class="logo">PA DENNY PJOK</div>
-<div class="nav-links">
-<a href="index.html">Home</a>
-<a href="team.html">Team Participant</a>
-</div>
+  <div class="logo">PA DENNY PJOK</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="team.html">Team Participant</a>
+  </div>
 </nav>
 
 <section>
 <h1>Team Participant</h1>
 
-<div class="card">
-<h2>EGOIST</h2>
-<img src="EGOIST.png" alt="Logo EGOIST">
-<p>Anggota: Player1, Player2, Player3, Player4, Player5</p>
-</div>
+<div class="team-container">
 
-<div class="card">
-<h2>FIFTE
+  <div class="card">
+    <h2>EGOIST</h2>
+    <img src="EGOIST.png" alt="Logo EGOIST">
+    <p>Anggota: HINDAN, TRY AMANDA, LIONG, FAHRI IX-D, ANDHIKA VIII-B</p>
+  </div>
+
+  <div class="card">
+    <h2>FIFTEEN LEGENDS</h2>
+    <img src="FIFTEEN LEGENDS.png" alt="Logo Fifteen">
+    <p>Anggota:EKA, NAZRIL, FAZRI, RAFA VIII-H, ADIT VIII-H</p>
+  </div>
+
+  <div class="card">
+    <h2>JAPANDE</h2>
+    <img src="JAPANDE.png" alt="Logo Japande">
+    <p>Anggota: Player1, Player2, Player3, Player4, Player5</p>
+  </div>
+
+  <div class="card">
+    <h2>EVOS BARDE IX-D</h2>
+    <img src="EVOS BARDE.png" alt="Logo Foxtrot">
+    <p>Anggota: RIDWAN, FAUDZAN, SAKA, APIDLI, DAFA</p>
+  </div>
+
+  <div class="card">
+    <h2>DEATHFLOW VIII-C</h2>
+    <img src="DEATHFLOW.png" alt="Logo Warrior">
+    <p>Anggota: ALFAN, DENI, IHYA, PIKRI, AIMAN VIII-G</p>
+  </div>
+
+  <div class="card">
+    <h2>DERMAGA SQUAD IX-G</h2>
+    <img src="DSQ.png" alt="Logo Alpha">
+    <p>Anggota: NAJWAN, FADIL, IQBAL, MAESAN, ZIDDNY IX-H</p>
+  </div>
+
+</div>
+</section>
+
+</body>
+</html>
