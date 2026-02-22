@@ -88,13 +88,14 @@ nav .hamburger{
     top:0;
     right:-100%;
     height:100vh;
-    width:220px;
+    width:70%;
     flex-direction:column;
     background:black;
     padding-top:80px;
     gap:20px;
     transition:0.5s;
     box-shadow:-4px 0 20px rgba(0,0,0,0.5);
+    overflow-y:auto;
   }
 
   nav .nav-links.show{
@@ -117,8 +118,8 @@ nav .hamburger{
 
 /* SECTION */
 section{
-  min-height:100vh;
-  padding:80px 15px;
+  min-height:auto;
+  padding:20px 15px;
   text-align:center;
   background-size:cover;
   background-position:center;
@@ -257,6 +258,11 @@ footer{
 }
 
 /* Standings Table */
+.standings-table-wrapper{
+  overflow-x:auto;
+  width:100%;
+}
+
 .standings-table{
   width:100%;
   border-collapse:collapse;
@@ -286,7 +292,7 @@ footer{
 
 .team-cell{
   display:flex;
-  align-items:center; /* vertical center */
+  align-items:center;
   gap:10px;
   justify-content:flex-start;
 }
@@ -316,7 +322,6 @@ footer{
   background:linear-gradient(90deg,#111,#002244);
 }
 
-/* Responsive smaller sections */
 @media(max-width:600px){
   h1{ font-size:28px; }
   .card{ padding:20px; }
@@ -373,7 +378,7 @@ footer{
 
 <section id="ml">
   <h1>KLASEMEN TURNAMEN MLBB</h1>
-  <div class="card">
+  <div class="card standings-table-wrapper">
     <table id="standings" class="standings-table">
       <thead>
         <tr>
