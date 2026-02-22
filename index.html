@@ -50,23 +50,36 @@ nav .nav-links a{
   color:gold;
   text-decoration:none;
   font-weight:bold;
+  position:relative;
+  padding:5px 0;
   transition:0.3s;
 }
 
-nav .nav-links a:hover{
-  color:#00f2ff;
-  text-shadow:0 0 10px #00f2ff;
+nav .nav-links a::after{
+  content:"";
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:0%;
+  height:3px;
+  background:#00f2ff;
+  transition:0.3s;
+  border-radius:3px;
 }
 
-/* Hamburger */
+nav .nav-links a:hover::after,
+nav .nav-links a.active::after{
+  width:100%;
+}
+
 nav .hamburger{
   display:none;
-  font-size:24px;
+  font-size:28px;
   color:gold;
   cursor:pointer;
 }
 
-/* Show menu on small screens */
+/* Small screen menu */
 @media (max-width:900px){
   nav .nav-links{
     position:fixed;
@@ -88,6 +101,15 @@ nav .hamburger{
 
   nav .hamburger{
     display:block;
+  }
+
+  nav .nav-links .close-menu{
+    position:absolute;
+    top:20px;
+    right:20px;
+    font-size:28px;
+    cursor:pointer;
+    color:gold;
   }
 }
 
@@ -299,6 +321,7 @@ footer{
 <nav>
   <div class="logo">PA DENNY PJOK</div>
   <div class="nav-links" id="navLinks">
+    <div class="close-menu" id="closeMenu"><i class="fas fa-times"></i></div>
     <a href="#home">Home</a>
     <a href="#about">Tentang</a>
     <a href="#sosmed">Sosmed</a>
@@ -424,9 +447,14 @@ footer{
 // Hamburger toggle
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
+const closeMenu = document.getElementById('closeMenu');
 
 hamburger.addEventListener('click', ()=>{
-  navLinks.classList.toggle('show');
+  navLinks.classList.add('show');
+});
+
+closeMenu.addEventListener('click', ()=>{
+  navLinks.classList.remove('show');
 });
 
 // Sort table
