@@ -6,236 +6,174 @@
 <title>Materi PJOK Kelas 7</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
-body{
-    background:#f4f7fb;
-    color:#333;
-}
-
-header{
-    background:linear-gradient(135deg,#1e3c72,#2a5298);
-    color:white;
-    padding:40px 20px;
-    text-align:center;
-}
-
-header h1{
-    font-size:32px;
-    font-weight:700;
-}
-
-header p{
-    opacity:0.9;
-    margin-top:10px;
-}
-
-.container{
-    max-width:1000px;
-    margin:40px auto;
-    padding:0 20px;
-}
-
-.tabs{
-    display:flex;
-    justify-content:center;
-    margin-bottom:30px;
-    gap:10px;
-}
-
-.tab-btn{
-    padding:10px 20px;
-    border:none;
-    cursor:pointer;
-    background:#ddd;
-    border-radius:6px;
-    font-weight:600;
-    transition:0.3s;
-}
-
-.tab-btn.active{
-    background:#2a5298;
-    color:white;
-}
-
-.tab-content{
-    display:none;
-}
-
-.tab-content.active{
-    display:block;
-}
-
-.card{
-    background:white;
-    border-radius:10px;
-    margin-bottom:15px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.08);
-    overflow:hidden;
-}
-
-.card-header{
-    padding:15px 20px;
-    background:#2a5298;
-    color:white;
-    cursor:pointer;
-    font-weight:600;
-}
-
-.card-body{
-    padding:20px;
-    display:none;
-    animation:fade 0.3s ease-in-out;
-}
-
-.card-body ul{
-    margin-top:10px;
-    padding-left:20px;
-}
-
-@keyframes fade{
-    from{opacity:0;}
-    to{opacity:1;}
-}
-
-footer{
-    text-align:center;
-    padding:20px;
-    margin-top:40px;
-    background:#1e3c72;
-    color:white;
-    font-size:14px;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#f4f7fb;color:#333;}
+header{background:linear-gradient(135deg,#1e3c72,#2a5298);color:white;padding:40px 20px;text-align:center;}
+header h1{font-size:32px;font-weight:700;}
+header p{opacity:0.9;margin-top:10px;}
+.container{max-width:1000px;margin:40px auto;padding:0 20px;}
+.tabs{display:flex;justify-content:center;margin-bottom:30px;gap:10px;}
+.tab-btn{padding:10px 20px;border:none;cursor:pointer;background:#ddd;border-radius:6px;font-weight:600;transition:0.3s;}
+.tab-btn.active{background:#2a5298;color:white;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+.card{background:white;border-radius:10px;margin-bottom:15px;box-shadow:0 4px 12px rgba(0,0,0,0.08);overflow:hidden;}
+.card-header{padding:15px 20px;background:#2a5298;color:white;cursor:pointer;font-weight:600;}
+.card-body{padding:20px;display:none;line-height:1.7;}
+.card-body ul{margin-top:10px;padding-left:20px;}
+footer{text-align:center;padding:20px;margin-top:40px;background:#1e3c72;color:white;font-size:14px;}
 </style>
 </head>
 <body>
 
 <header>
-    <h1>Materi PJOK Kelas 7 SMP</h1>
-    <p>Kurikulum Merdeka - Semester 1 & 2</p>
+<h1>Materi PJOK Kelas 7 SMP</h1>
+<p>Kurikulum Merdeka - Semester 1 & 2 (Versi Lengkap)</p>
 </header>
 
 <div class="container">
 
-    <div class="tabs">
-        <button class="tab-btn active" onclick="openTab('smt1')">Semester 1</button>
-        <button class="tab-btn" onclick="openTab('smt2')">Semester 2</button>
-    </div>
+<div class="tabs">
+<button class="tab-btn active" onclick="openTab(event,'smt1')">Semester 1</button>
+<button class="tab-btn" onclick="openTab(event,'smt2')">Semester 2</button>
+</div>
 
-    <!-- SEMESTER 1 -->
-    <div id="smt1" class="tab-content active">
+<!-- ================= SEMESTER 1 ================= -->
+<div id="smt1" class="tab-content active">
 
-        <div class="card">
-            <div class="card-header">Sepak Bola</div>
-            <div class="card-body">
-                <p><strong>Materi:</strong></p>
-                <ul>
-                    <li>Passing & Control</li>
-                    <li>Dribbling</li>
-                    <li>Shooting</li>
-                    <li>Aturan Dasar</li>
-                </ul>
-                <p><strong>Tujuan:</strong> Siswa mampu memahami dan mempraktikkan teknik dasar sepak bola dengan benar.</p>
-            </div>
-        </div>
+<div class="card">
+<div class="card-header">Sepak Bola</div>
+<div class="card-body">
+<p><strong>Pengertian:</strong> Sepak bola adalah permainan beregu yang dimainkan oleh dua tim masing-masing 11 pemain dengan tujuan mencetak gol sebanyak-banyaknya ke gawang lawan.</p>
 
-        <div class="card">
-            <div class="card-header">Bola Basket</div>
-            <div class="card-body">
-                <ul>
-                    <li>Dribble</li>
-                    <li>Passing</li>
-                    <li>Shooting</li>
-                    <li>Pivot</li>
-                </ul>
-                <p>Melatih koordinasi tangan dan kerja sama tim.</p>
-            </div>
-        </div>
+<p><strong>Teknik Dasar:</strong></p>
+<ul>
+<li>Passing (operan kaki bagian dalam, luar, punggung kaki)</li>
+<li>Control (menghentikan bola menggunakan kaki, dada, paha)</li>
+<li>Dribbling (menggiring bola melewati lawan)</li>
+<li>Shooting (menendang ke arah gawang)</li>
+<li>Heading (menyundul bola)</li>
+</ul>
 
-        <div class="card">
-            <div class="card-header">Atletik</div>
-            <div class="card-body">
-                <ul>
-                    <li>Lari jarak pendek</li>
-                    <li>Lompat jauh</li>
-                    <li>Tolak peluru</li>
-                </ul>
-                <p>Atletik adalah dasar dari semua cabang olahraga.</p>
-            </div>
-        </div>
+<p><strong>Peraturan Dasar:</strong> Tidak boleh handsball kecuali penjaga gawang, mengenal offside, pertandingan terdiri dari dua babak.</p>
 
-    </div>
+<p><strong>Kesalahan Umum:</strong> Posisi badan terlalu tegak saat shooting, kurang kontrol saat menerima bola.</p>
 
-    <!-- SEMESTER 2 -->
-    <div id="smt2" class="tab-content">
+<p><strong>Manfaat:</strong> Melatih daya tahan, kecepatan, dan kerja sama tim.</p>
+</div>
+</div>
 
-        <div class="card">
-            <div class="card-header">Senam Lantai</div>
-            <div class="card-body">
-                <ul>
-                    <li>Guling depan</li>
-                    <li>Guling belakang</li>
-                    <li>Sikap lilin</li>
-                </ul>
-                <p>Melatih keseimbangan dan kekuatan otot inti.</p>
-            </div>
-        </div>
+<div class="card">
+<div class="card-header">Bola Basket</div>
+<div class="card-body">
+<p><strong>Pengertian:</strong> Bola basket adalah permainan 5 lawan 5 dengan tujuan memasukkan bola ke ring lawan.</p>
 
-        <div class="card">
-            <div class="card-header">Pencak Silat</div>
-            <div class="card-body">
-                <ul>
-                    <li>Kuda-kuda</li>
-                    <li>Pukulan</li>
-                    <li>Tendangan</li>
-                </ul>
-                <p>Mengajarkan disiplin dan kontrol diri.</p>
-            </div>
-        </div>
+<ul>
+<li>Dribble (pantulan bola saat bergerak)</li>
+<li>Passing (chest pass, bounce pass, overhead pass)</li>
+<li>Shooting dan Lay Up</li>
+<li>Pivot (gerakan berputar dengan satu kaki sebagai poros)</li>
+</ul>
 
-        <div class="card">
-            <div class="card-header">Pola Hidup Sehat</div>
-            <div class="card-body">
-                <ul>
-                    <li>Gizi seimbang</li>
-                    <li>Istirahat cukup</li>
-                    <li>Kebersihan diri</li>
-                </ul>
-                <p>Kesehatan adalah fondasi prestasi.</p>
-            </div>
-        </div>
+<p><strong>Pelanggaran:</strong> Travelling, double dribble, foul.</p>
 
-    </div>
+<p><strong>Manfaat:</strong> Meningkatkan koordinasi tangan-mata, kelincahan, dan strategi.</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">Atletik</div>
+<div class="card-body">
+<p><strong>Pengertian:</strong> Atletik merupakan cabang olahraga dasar yang meliputi lari, lompat, dan lempar.</p>
+
+<ul>
+<li>Lari jarak pendek (100–200m)</li>
+<li>Lompat jauh</li>
+<li>Tolak peluru</li>
+</ul>
+
+<p><strong>Teknik Lari:</strong> Start jongkok, fase lari, dan finish.</p>
+
+<p><strong>Manfaat:</strong> Melatih kekuatan otot dan daya ledak.</p>
+</div>
+</div>
+
+</div>
+
+<!-- ================= SEMESTER 2 ================= -->
+<div id="smt2" class="tab-content">
+
+<div class="card">
+<div class="card-header">Senam Lantai</div>
+<div class="card-body">
+<p><strong>Pengertian:</strong> Senam lantai dilakukan di atas matras tanpa alat tambahan.</p>
+
+<ul>
+<li>Guling depan</li>
+<li>Guling belakang</li>
+<li>Sikap lilin</li>
+<li>Kayang</li>
+</ul>
+
+<p><strong>Manfaat:</strong> Melatih keseimbangan, kelenturan, dan kekuatan inti.</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">Pencak Silat</div>
+<div class="card-body">
+<p><strong>Pengertian:</strong> Seni bela diri asli Indonesia yang mengajarkan teknik pertahanan dan nilai karakter.</p>
+
+<ul>
+<li>Kuda-kuda</li>
+<li>Pukulan</li>
+<li>Tendangan</li>
+<li>Tangkisan</li>
+</ul>
+
+<p><strong>Nilai:</strong> Disiplin, percaya diri, tanggung jawab.</p>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header">Pola Hidup Sehat</div>
+<div class="card-body">
+<ul>
+<li>Gizi seimbang</li>
+<li>Istirahat cukup (7–8 jam)</li>
+<li>Kebersihan diri</li>
+<li>Olahraga rutin</li>
+</ul>
+
+<p><strong>Kesimpulan:</strong> Tubuh sehat menunjang prestasi dan aktivitas sehari-hari.</p>
+</div>
+</div>
+
+</div>
 
 </div>
 
 <footer>
-    © 2026 PJOK Digital | Pa Denny
+© 2026 PJOK Digital | Pa Denny
 </footer>
 
 <script>
-function openTab(tabId){
-    document.querySelectorAll('.tab-content').forEach(tab=>{
-        tab.classList.remove('active');
-    });
-    document.querySelectorAll('.tab-btn').forEach(btn=>{
-        btn.classList.remove('active');
-    });
-
-    document.getElementById(tabId).classList.add('active');
-    event.target.classList.add('active');
+function openTab(evt, tabId){
+document.querySelectorAll('.tab-content').forEach(tab=>{
+tab.classList.remove('active');
+});
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+btn.classList.remove('active');
+});
+document.getElementById(tabId).classList.add('active');
+evt.currentTarget.classList.add('active');
 }
 
 document.querySelectorAll('.card-header').forEach(header=>{
-    header.addEventListener('click',()=>{
-        const body = header.nextElementSibling;
-        body.style.display = body.style.display === "block" ? "none" : "block";
-    });
+header.addEventListener('click',()=>{
+const body = header.nextElementSibling;
+body.style.display = body.style.display === "block" ? "none" : "block";
+});
 });
 </script>
 
