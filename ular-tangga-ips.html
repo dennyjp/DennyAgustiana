@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Game Ular Tangga IPS</title>
+<style>
+body{
+    font-family:Arial, sans-serif;
+    background:#f4f7fb;
+    text-align:center;
+}
+
+h1{
+    margin-top:20px;
+}
+
+#board{
+    display:grid;
+    grid-template-columns: repeat(6, 80px);
+    grid-template-rows: repeat(5, 80px);
+    gap:5px;
+    justify-content:center;
+    margin:20px auto;
+}
+
+.tile{
+    background:white;
+    border:1px solid #ccc;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-weight:bold;
+    position:relative;
+}
+
+.player{
+    width:20px;
+    height:20px;
+    background:red;
+    border-radius:50%;
+    position:absolute;
+    bottom:5px;
+}
+
+button{
+    padding:10px 20px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+#info{
+    margin-top:10px;
+    font-size:18px;
+}
+</style>
+</head>
+<body>
+
+<h1>Ular Tangga IPS</h1>
+
+<div id="board"></div>
+
+<button onclick="rollDice()">Kocok Dadu</button>
+
+<div id="info">
+Posisi: <span id="pos">1</span> |
+Skor: <span id="score">0</span>
+</div>
+
+<script>
+
+const board = document.getElementById("board");
+let position = 1;
+let score = 0;
+
+// Buat papan zig-zag
+let numbers = [];
+for(let i=30;i>=1;i--){
+    numbers.push(i);
+}
+
+for(let row=0; row<5; row++){
+    let rowTiles = numbers.slice(row*6, row*6+6);
+    if(row % 2 === 1){
+        rowTiles.reverse();
+    }
+    rowTiles.forEach(num=>{
+        let tile = document.createElement("div");
+        tile.className="tile";
+        tile.id="tile"+num;
+        tile.innerText=num;
+        board.appendChild(tile);
+    });
+}
+
+// Tambah player awal
+updatePlayer();
+
+// Tangga & Ular
+const ladders = {3:11, 8:17, 15:24};
+const snakes = {14:5, 22:9, 29:18};
+
+// Bank soal sederhana
+const questions = {
+3:{q:"SDA yang dapat diperbarui disebut?",a:"hayati"},
+7:{q:"Contoh SDA tidak terbarukan?",a:"minyak bumi"},
+12:{q:"Komoditas utama Nusantara?",a:"rempah-rempah"},
+18:{q:"Teori Brahmana disebarkan oleh?",a:"pendeta"},
+25:{q:"Mengapa Indonesia strategis?",a:"jalur rempah"}
+};
+
+function rollDice(){
+    let dice = Math.floor(Math.random()*6)+1;
+    position += dice;
+
+    if(position>30) position=30;
+
+    checkTile();
+    updatePlayer();
+
+    if(position===30){
+        alert("Selamat! Kamu menang dengan skor "+score);
+    }
+}
+
+function checkTile(){
+
+    if(ladders[position]){
+        alert("Naik tangga!");
+        position = ladders[position];
+    }
+
+    if(snakes[position]){
+        alert("Digigit ular!");
+        position = snakes[position];
+    }
+
+    if(questions[position]){
+        let userAnswer = prompt(questions[position].q);
+        if(userAnswer && userAnswer.toLowerCase() === questions[position].a){
+            alert("Benar!");
+            score +=10;
+        }else{
+            alert("Salah! Turun 2 langkah.");
+            position -=2;
+            if(position<1) position=1;
+            score -=5;
+        }
+    }
+
+    document.getElementById("score").innerText = score;
+}
+
+function updatePlayer(){
+    document.querySelectorAll(".player").forEach(p=>p.remove());
+    let player = document.createElement("div");
+    player.className="player";
+    document.getElementById("tile"+position).appendChild(player);
+    document.getElementById("pos").innerText = position;
+}
+
+</script>
+
+</body>
+</html>
