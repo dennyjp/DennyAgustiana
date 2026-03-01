@@ -5,9 +5,11 @@
 <title>PA DENNY PJOK</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;font-family:'Trebuchet MS',sans-serif;}
 html, body{width:100%;min-height:100%;overflow-x:hidden;color:white;background:black;}
+
 /* NAVBAR */
 nav{position:fixed;width:100%;background:rgba(0,0,0,0.85);padding:15px 20px;display:flex;justify-content:space-between;align-items:center;z-index:1000;border-bottom:2px solid gold;backdrop-filter: blur(10px);}
 nav .logo{color:gold;font-weight:bold;font-size:20px;}
@@ -16,20 +18,20 @@ nav .nav-links a{color:gold;text-decoration:none;font-weight:bold;position:relat
 nav .nav-links a::after{content:"";position:absolute;bottom:0;left:0;width:0%;height:3px;background:#00f2ff;transition:0.3s;border-radius:3px;}
 nav .nav-links a:hover::after, nav .nav-links a.active::after{width:100%;}
 nav .hamburger{display:none;font-size:28px;color:gold;cursor:pointer;}
-/* Small screen menu */
+
+/* MOBILE NAV */
 @media (max-width:900px){
   nav .nav-links{position:fixed;top:0;right:-100%;height:100vh;width:70%;flex-direction:column;background:black;padding-top:80px;gap:20px;transition:0.5s;box-shadow:-4px 0 20px rgba(0,0,0,0.5);overflow-y:auto;}
   nav .nav-links.show{right:0;}
   nav .hamburger{display:block;}
   nav .nav-links .close-menu{position:absolute;top:20px;right:20px;font-size:28px;cursor:pointer;color:gold;}
 }
+
 /* SECTION */
-section{min-height:auto;padding:20px 15px;text-align:center;background-size:cover;background-position:center;position:relative;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;overflow:hidden;animation: zoomHero 18s ease-in-out infinite alternate;}
-@keyframes zoomHero{from{ background-size:100%; } to{ background-size:110%; }}
+section{padding:80px 15px;text-align:center;background-size:cover;background-position:center;position:relative;}
 section::before{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:0;}
-section::after{content:"";position:absolute;top:0;left:-50%;width:200%;height:100%;background:linear-gradient(120deg,transparent 0%,rgba(255,215,0,0.15) 40%,transparent 80%);animation: shineMove 8s linear infinite;z-index:1;}
-@keyframes shineMove{from{ transform:translateX(-100%); } to{ transform:translateX(100%); }}
 section *{position:relative;z-index:2;}
+
 /* BACKGROUND */
 #home{ background-image:url('IMG_7302.jpeg'); }
 #about{ background-image:url('IMG_7310.jpeg'); }
@@ -39,193 +41,125 @@ section *{position:relative;z-index:2;}
 #ips{ background-image:url('IMG_7306.jpeg'); }
 
 h1{font-size:40px;margin-bottom:20px;color:gold;text-shadow:0 0 20px gold;}
-img{width:170px;border-radius:50%;border:4px solid gold;margin-bottom:20px;box-shadow:0 0 25px gold;transition:0.4s;}
-img:hover{transform:scale(1.05);box-shadow:0 0 40px #00f2ff;}
-.card{background:linear-gradient(145deg,#112240,#0a192f);padding:30px;border-radius:15px;margin:20px auto;max-width:700px;border:1px solid gold;transition:0.3s;line-height:1.7;}
-.card:hover{transform:translateY(-6px);box-shadow:0 0 25px gold;}
+
+img{width:170px;border-radius:50%;border:4px solid gold;margin-bottom:20px;box-shadow:0 0 25px gold;}
+
+.card{
+background:linear-gradient(145deg,#112240,#0a192f);
+padding:30px;
+border-radius:15px;
+margin:20px auto;
+max-width:700px;
+border:1px solid gold;
+line-height:1.7;
+}
+
+/* SOCIAL */
 .social-links{display:flex;flex-direction:column;gap:15px;margin-top:15px;}
 .social-links a{text-decoration:none;background:linear-gradient(45deg,gold,#ff8c00);padding:12px;border-radius:12px;color:black;font-weight:bold;transition:0.3s;display:flex;align-items:center;justify-content:center;gap:10px;font-size:16px;}
 .social-links a:hover{transform:scale(1.07);background:#00f2ff;box-shadow:0 0 20px #00f2ff;}
+
+/* PJOK BUTTON */
+.btn-materi{
+display:inline-block;
+margin-top:15px;
+padding:12px 25px;
+background:linear-gradient(45deg,gold,#ff8c00);
+color:black;
+font-weight:bold;
+text-decoration:none;
+border-radius:12px;
+transition:0.3s;
+}
+
+.btn-materi:hover{
+transform:scale(1.08);
+background:#00f2ff;
+box-shadow:0 0 25px #00f2ff;
+}
+
+/* FOOTER */
 footer{text-align:center;padding:20px;background:black;border-top:1px solid gold;font-size:14px;color:gray;}
 
-/* Standings Table */
-.standings-table-wrapper{overflow-x:auto;width:100%;}
-.standings-table{width:100%;border-collapse:collapse;margin-top:20px;}
-.standings-table th{background:black;color:gold;padding:10px;border-bottom:2px solid gold;}
-.standings-table td{padding:10px;text-align:center;transition:0.5s;}
-.standings-table tr{transition:all 0.6s ease;}
-.standings-table tr:nth-child(even){background:rgba(255,255,255,0.05);}
-.team-cell{display:flex;align-items:center;gap:10px;justify-content:flex-start;}
-.team-logo{width:45px;height:45px;object-fit:cover;border-radius:50%;border:2px solid gold;box-shadow:0 0 10px gold,0 0 25px orange;animation:glow 2s infinite alternate;flex-shrink:0;}
-@keyframes glow{from{ box-shadow:0 0 10px gold; } to{ box-shadow:0 0 30px gold,0 0 50px orange; }}
-.win{ color:#00ff88; font-weight:bold; }
-.draw{ color:#ffd700; font-weight:bold; }
-.lose{ color:#ff4d4d; font-weight:bold; }
-.point{ color:#00f2ff; font-weight:bold; }
-.top{background:linear-gradient(90deg,#111,#002244);}
-@media(max-width:600px){h1{ font-size:28px; } .card{ padding:20px; } img{ width:120px; }}
+@media(max-width:600px){
+h1{font-size:28px;}
+.card{padding:20px;}
+img{width:120px;}
+}
 </style>
 </head>
 
 <body>
+
 <nav>
-  <div class="logo">PA DENNY PJOK</div>
-  <div class="nav-links" id="navLinks">
-    <div class="close-menu" id="closeMenu"><i class="fas fa-times"></i></div>
-    <a href="#home">Home</a>
-    <a href="#about">Tentang</a>
-    <a href="#sosmed">Sosmed</a>
-    <a href="#ml">Klasemen</a>
-    <a href="#pjok">PJOK</a>
-    <a href="#ips">IPS</a>
-    <a href="team.html">Team Participant</a>
-  </div>
-  <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+<div class="logo">PA DENNY PJOK</div>
+<div class="nav-links" id="navLinks">
+<div class="close-menu" id="closeMenu"><i class="fas fa-times"></i></div>
+<a href="#home">Home</a>
+<a href="#about">Tentang</a>
+<a href="#sosmed">Sosmed</a>
+<a href="#ml">Klasemen</a>
+<a href="#pjok">PJOK</a>
+<a href="#ips">IPS</a>
+<a href="team.html">Team Participant</a>
+</div>
+<div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
 </nav>
 
 <section id="home">
-  <h1>PA DENNY PJOK</h1>
-  <img src="IMG_7298.jpeg" alt="Foto Pa Denny">
-  <p>🔥 Guru PJOK | Tournament Organizer | MLBB Creator 🔥</p>
+<h1>PA DENNY PJOK</h1>
+<img src="IMG_7298.jpeg" alt="Foto Pa Denny">
+<p>🔥 Guru PJOK | Tournament Organizer | MLBB Creator 🔥</p>
 </section>
 
 <section id="about">
-  <h1>BIOGRAFI</h1>
-  <div class="card">
-    <p><b>Pa Denny</b> adalah seorang Guru Pendidikan Jasmani yang aktif, kreatif, dan inovatif dalam mengembangkan pembelajaran di sekolah.</p>
-    <br>
-    <p>Selain fokus pada kebugaran jasmani dan pendidikan karakter melalui olahraga, beliau juga memiliki minat besar dalam dunia esport khususnya Mobile Legends.</p>
-    <br>
-    <p>Melalui turnamen dan kegiatan kompetitif, Pa Denny membimbing siswa untuk belajar tentang sportivitas, kerja sama tim, strategi, dan kepemimpinan.</p>
-    <br>
-    <p>Dengan pendekatan yang energik dan dekat dengan siswa, beliau berkomitmen menciptakan generasi yang sehat, disiplin, dan berprestasi baik di bidang akademik maupun non-akademik.</p>
-  </div>
+<h1>BIOGRAFI</h1>
+<div class="card">
+<p><b>Pa Denny</b> adalah Guru PJOK yang aktif dan inovatif dalam pembelajaran serta pengembangan karakter melalui olahraga dan esport.</p>
+</div>
 </section>
 
 <section id="sosmed">
-  <h1>SOSIAL MEDIA</h1>
-  <div class="card">
-    <div class="social-links">
-      <a href="https://tiktok.com/@dennypjok" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
-      <a href="https://instagram.com/decin_4" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-      <a href="https://youtube.com/@mfncleague" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
-    </div>
-  </div>
-</section>
-
-<section id="ml">
-  <h1>KLASEMEN TURNAMEN MLBB</h1>
-  <div class="card standings-table-wrapper">
-    <table id="standings" class="standings-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Tim</th>
-          <th>Main</th>
-          <th>W</th>
-          <th>D</th>
-          <th>L</th>
-          <th>Poin</th>
-          <th>Jadwal</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td class="team-cell"><img src="FIFTEEN LEGENDS.png" class="team-logo"> EGOIST</td>
-          <td>4</td><td class="win">4</td><td class="draw">0</td><td class="lose">0</td>
-          <td class="point">8</td>
-          <td>Vs FIFTEEN LEGENDS (7 Maret 2026, 20:30)</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td class="team-cell"><img src="EGOIST.png" class="team-logo"> FIFTEEN LEGENDS</td>
-          <td>4</td><td class="win">3</td><td class="draw">0</td><td class="lose">1</td>
-          <td class="point">10</td>
-          <td>Vs EGOIST (7 Maret 2026, 20:30)</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td class="team-cell"><img src="DSQ.png" class="team-logo"> DSQ</td>
-          <td>4</td><td class="win">2</td><td class="draw">0</td><td class="lose">2</td>
-          <td class="point">6</td>
-          <td>Vs EVOS BARDE (7 Maret 2026, 20:30)</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td class="team-cell"><img src="EVOS BARDE.png" class="team-logo"> EVOS BARDE</td>
-          <td>4</td><td class="win">2</td><td class="draw">0</td><td class="lose">2</td>
-          <td class="point">4</td>
-          <td>Vs DSQ (7 Maret 2026, 20:30)</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td class="team-cell"><img src="JAPANDE.png" class="team-logo"> JAPANDE</td>
-          <td>4</td><td class="win">1</td><td class="draw">0</td><td class="lose">3</td>
-          <td class="point">2</td>
-          <td>Vs DEATHFLOW (7 Maret 2026, 20:30)</td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td class="team-cell"><img src="DEATHFLOW.png" class="team-logo"> DEATHFLOW</td>
-          <td>4</td><td class="win">0</td><td class="draw">0</td><td class="lose">4</td>
-          <td class="point">0</td>
-          <td>Vs JAPANDE (7 Maret 2026, 20:30)</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<h1>SOSIAL MEDIA</h1>
+<div class="card">
+<div class="social-links">
+<a href="https://tiktok.com/@dennypjok" target="_blank"><i class="fab fa-tiktok"></i> TikTok</a>
+<a href="https://instagram.com/decin_4" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+<a href="https://youtube.com/@mfncleague" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+</div>
+</div>
 </section>
 
 <section id="pjok">
-  <h1>MATERI PJOK</h1>
-  <div class="card">
-    <p>🏃 Kebugaran Jasmani</p>
-    <p>💪 Latihan Sixpack</p>
-    <p>⚽ Permainan Bola Besar</p>
-  </div>
+<h1>MATERI PJOK</h1>
+<div class="card">
+<p>Portal Pembelajaran PJOK Kelas 7 Semester 1 & 2</p>
+<br>
+<a href="materi-pjok.html" class="btn-materi">
+📘 Buka Materi Lengkap
+</a>
+</div>
 </section>
 
 <section id="ips">
-  <h1>MATERI IPS</h1>
-  <div class="card">
-    <p>🌍 Interaksi Sosial</p>
-    <p>💰 Kegiatan Ekonomi</p>
-    <p>📊 Dinamika Sosial</p>
-  </div>
+<h1>MATERI IPS</h1>
+<div class="card">
+<p>Materi IPS tersedia terpisah sesuai kurikulum.</p>
+</div>
 </section>
 
 <footer>
-  © 2026 PA DENNY PJOK
+© 2026 PA DENNY PJOK
 </footer>
 
 <script>
-// Hamburger toggle
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 const closeMenu = document.getElementById('closeMenu');
+
 hamburger.addEventListener('click', ()=>{navLinks.classList.add('show');});
 closeMenu.addEventListener('click', ()=>{navLinks.classList.remove('show');});
-
-// Sort table by points
-function sortTable(){
-  const table = document.getElementById("standings");
-  const tbody = table.querySelector("tbody");
-  const rows = Array.from(tbody.querySelectorAll("tr"));
-  rows.sort((a,b)=>{
-    const pointA = parseInt(a.querySelector(".point").textContent);
-    const pointB = parseInt(b.querySelector(".point").textContent);
-    return pointB - pointA;
-  });
-  rows.forEach((row,index)=>{
-    row.querySelector("td").textContent = index+1;
-    row.classList.remove("top");
-    if(index<2){ row.classList.add("top"); }
-    tbody.appendChild(row);
-  });
-}
-sortTable();
-setInterval(sortTable,3000);
 </script>
+
 </body>
 </html>
