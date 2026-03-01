@@ -3,162 +3,398 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Game Ular Tangga IPS</title>
+<title>Ular Tangga IPS - Pa Denny</title>
+
 <style>
 body{
-    font-family:Arial, sans-serif;
-    background:#f4f7fb;
-    text-align:center;
+font-family:Arial, sans-serif;
+background:#111;
+color:white;
+text-align:center;
+margin:0;
 }
 
-h1{
-    margin-top:20px;
+h1{margin-top:20px;color:gold;}
+
+#loginBox{
+margin-top:80px;
 }
 
-#board{
-    display:grid;
-    grid-template-columns: repeat(6, 80px);
-    grid-template-rows: repeat(5, 80px);
-    gap:5px;
-    justify-content:center;
-    margin:20px auto;
-}
-
-.tile{
-    background:white;
-    border:1px solid #ccc;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-weight:bold;
-    position:relative;
-}
-
-.player{
-    width:20px;
-    height:20px;
-    background:red;
-    border-radius:50%;
-    position:absolute;
-    bottom:5px;
+input{
+padding:10px;
+font-size:16px;
+border-radius:8px;
+border:none;
 }
 
 button{
-    padding:10px 20px;
-    font-size:16px;
-    cursor:pointer;
+padding:10px 20px;
+font-size:16px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+background:gold;
+font-weight:bold;
 }
 
-#info{
-    margin-top:10px;
-    font-size:18px;
+#gameArea{display:none;}
+
+#board{
+display:grid;
+grid-template-columns:repeat(6,70px);
+grid-template-rows:repeat(5,70px);
+gap:5px;
+justify-content:center;
+margin:20px auto;
 }
+
+.tile{
+background:#222;
+border:1px solid gold;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+font-weight:bold;
+}
+
+.player{
+width:18px;
+height:18px;
+background:red;
+border-radius:50%;
+position:absolute;
+bottom:5px;
+}
+
+#info{margin-top:10px;}
+
+.modal{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.modal-content{
+background:#222;
+padding:20px;
+border-radius:10px;
+width:300px;
+}
+
+.option{
+display:block;
+margin:8px 0;
+padding:8px;
+background:#333;
+border-radius:6px;
+cursor:pointer;
+}
+
+.option:hover{background:gold;color:black;}
+
+#timer{
+color:red;
+font-weight:bold;
+margin-top:10px;
+}
+
+#leaderboard{
+margin-top:20px;
+}
+
 </style>
 </head>
 <body>
 
-<h1>Ular Tangga IPS</h1>
+<h1>🎲 Ular Tangga IPS</h1>
 
+<div id="loginBox">
+<h3>Masukkan Nama Lengkap</h3>
+<input type="text" id="playerName" placeholder="Nama lengkap">
+<br><br>
+<button onclick="startGame()">Mulai Game</button>
+</div>
+
+<div id="gameArea">
 <div id="board"></div>
-
 <button onclick="rollDice()">Kocok Dadu</button>
-
 <div id="info">
 Posisi: <span id="pos">1</span> |
 Skor: <span id="score">0</span>
 </div>
 
+<div id="leaderboard">
+<h3>Leaderboard</h3>
+<ul id="leaderList"></ul>
+</div>
+</div>
+
+<div class="modal" id="questionModal">
+<div class="modal-content">
+<h3 id="questionText"></h3>
+<div id="options"></div>
+<div id="timer"></div>
+</div>
+</div>
+
 <script>
 
-const board = document.getElementById("board");
-let position = 1;
-let score = 0;
+let player="";
+let position=1;
+let score=0;
+let timerInterval;
+let timeLeft=15;
 
-// Buat papan zig-zag
-let numbers = [];
-for(let i=30;i>=1;i--){
-    numbers.push(i);
+const ladders={3:11,8:17,15:24};
+const snakes={14:5,22:9,29:18};
+
+const questionsLevel1 = [
+{q:"SDA yang dapat diperbarui disebut?",options:["Mineral","Hayati","Logam","Tambang"],answer:"Hayati"},
+{q:"Contoh SDA tidak terbarukan?",options:["Air","Minyak bumi","Angin","Hutan"],answer:"Minyak bumi"},
+{q:"SDA hayati berasal dari?",options:["Makhluk hidup","Tambang","Batuan","Logam"],answer:"Makhluk hidup"},
+{q:"Contoh SDA energi alternatif?",options:["Batu bara","Matahari","Emas","Timah"],answer:"Matahari"},
+{q:"Hutan termasuk SDA?",options:["Tidak terbarukan","Hayati","Tambang","Mineral"],answer:"Hayati"},
+{q:"Minyak bumi diolah menjadi?",options:["Bensin","Air","Kayu","Angin"],answer:"Bensin"},
+{q:"SDA yang jumlahnya terbatas disebut?",options:["Abadi","Tidak terbarukan","Hayati","Gratis"],answer:"Tidak terbarukan"},
+{q:"Contoh SDA tambang?",options:["Ikan","Padi","Emas","Hutan"],answer:"Emas"},
+{q:"Upaya pelestarian hutan disebut?",options:["Eksploitasi","Reboisasi","Polusi","Urbanisasi"],answer:"Reboisasi"},
+{q:"Air termasuk SDA?",options:["Terbarukan","Tambang","Mineral","Logam"],answer:"Terbarukan"},
+{q:"Batu bara digunakan untuk?",options:["Bahan bakar","Makanan","Pakaian","Minuman"],answer:"Bahan bakar"},
+{q:"Energi angin termasuk energi?",options:["Fosil","Alternatif","Tambang","Mineral"],answer:"Alternatif"},
+{q:"SDA laut contohnya?",options:["Padi","Ikan","Batu bara","Timah"],answer:"Ikan"},
+{q:"Kegiatan mengambil SDA disebut?",options:["Produksi","Eksploitasi","Distribusi","Konsumsi"],answer:"Eksploitasi"},
+{q:"Gas alam termasuk SDA?",options:["Terbarukan","Tidak terbarukan","Hayati","Gratis"],answer:"Tidak terbarukan"},
+{q:"SDA pertanian termasuk?",options:["Hayati","Tambang","Mineral","Logam"],answer:"Hayati"},
+{q:"Energi surya berasal dari?",options:["Bumi","Matahari","Air","Angin"],answer:"Matahari"},
+{q:"Kerusakan SDA akibat?",options:["Pelestarian","Eksploitasi berlebihan","Reboisasi","Konservasi"],answer:"Eksploitasi berlebihan"},
+{q:"Contoh SDA perkebunan?",options:["Sawit","Besi","Emas","Timah"],answer:"Sawit"},
+{q:"SDA mineral contohnya?",options:["Besi","Ikan","Air","Hutan"],answer:"Besi"},
+{q:"PLTA memanfaatkan energi?",options:["Air","Angin","Matahari","Batu bara"],answer:"Air"},
+{q:"PLTB memanfaatkan energi?",options:["Air","Angin","Batu bara","Gas"],answer:"Angin"},
+{q:"Konservasi berarti?",options:["Pelestarian","Perusakan","Penggalian","Pembakaran"],answer:"Pelestarian"},
+{q:"Contoh SDA darat?",options:["Ikan","Terumbu karang","Padi","Rumput laut"],answer:"Padi"},
+{q:"SDA penting bagi?",options:["Kehidupan manusia","Robot","Mesin","Internet"],answer:"Kehidupan manusia"},
+{q:"Sumber energi fosil berasal dari?",options:["Sisa makhluk hidup purba","Air","Angin","Matahari"],answer:"Sisa makhluk hidup purba"},
+{q:"Contoh hasil hutan?",options:["Kayu","Batu bara","Emas","Timah"],answer:"Kayu"},
+{q:"SDA dapat habis jika?",options:["Dilestarikan","Digunakan bijak","Dieksploitasi berlebihan","Dijaga"],answer:"Dieksploitasi berlebihan"},
+{q:"Contoh energi panas bumi?",options:["Geothermal","Solar","Wind","Hydro"],answer:"Geothermal"},
+{q:"SDA sangat penting untuk?",options:["Ekonomi","Permainan","Hiburan","Media sosial"],answer:"Ekonomi"}
+];
+
+const questionsLevel2 = [
+{q:"Komoditas utama Nusantara zaman dulu?",options:["Batu bara","Rempah-rempah","Emas","Kopi"],answer:"Rempah-rempah"},
+{q:"Letak Indonesia strategis karena?",options:["Jalur rempah","Dekat kutub","Gurun luas","Pegunungan tinggi"],answer:"Jalur rempah"},
+{q:"Kerajaan maritim terkenal?",options:["Sriwijaya","Majapahit","Mataram","Demak"],answer:"Sriwijaya"},
+{q:"Selat Malaka berfungsi sebagai?",options:["Jalur perdagangan","Tempat wisata","Sawah","Hutan"],answer:"Jalur perdagangan"},
+{q:"Pedagang Arab datang untuk?",options:["Rempah","Batu bara","Air","Kayu"],answer:"Rempah"},
+{q:"Pelabuhan penting masa lalu?",options:["Malaka","Bandung","Bogor","Solo"],answer:"Malaka"},
+{q:"Sriwijaya terkenal sebagai kerajaan?",options:["Agraris","Maritim","Industri","Tambang"],answer:"Maritim"},
+{q:"Rempah paling dicari Eropa?",options:["Pala","Padi","Jagung","Kopi"],answer:"Pala"},
+{q:"VOC berasal dari?",options:["Belanda","Jepang","Arab","India"],answer:"Belanda"},
+{q:"Tujuan bangsa Eropa ke Indonesia?",options:["Rempah","Wisata","Belajar","Liburan"],answer:"Rempah"},
+{q:"Jalur perdagangan laut disebut?",options:["Maritim","Agraris","Urban","Industri"],answer:"Maritim"},
+{q:"Majapahit terkenal di bidang?",options:["Perdagangan","Pertanian","Tambang","Industri"],answer:"Perdagangan"},
+{q:"Pelaut terkenal Nusantara?",options:["Laksamana","Petani","Pendeta","Pedagang"],answer:"Laksamana"},
+{q:"Perdagangan meningkatkan?",options:["Ekonomi","Polusi","Kerusakan","Banjir"],answer:"Ekonomi"},
+{q:"Barang dagang disebut?",options:["Komoditas","Produksi","Distribusi","Konsumsi"],answer:"Komoditas"},
+{q:"Pasar adalah tempat?",options:["Jual beli","Bermain","Tidur","Belajar"],answer:"Jual beli"},
+{q:"Interaksi dagang antar negara disebut?",options:["Ekspor impor","Produksi","Distribusi","Migrasi"],answer:"Ekspor impor"},
+{q:"Kerajaan Demak aktif di?",options:["Perdagangan","Tambang","Industri","Pertanian"],answer:"Perdagangan"},
+{q:"Rempah berasal dari?",options:["Maluku","Bandung","Jakarta","Papua"],answer:"Maluku"},
+{q:"Sriwijaya berjaya abad?",options:["7","1","15","20"],answer:"7"},
+{q:"Pusat perdagangan Nusantara?",options:["Malaka","Solo","Bogor","Cirebon"],answer:"Malaka"},
+{q:"Perdagangan laut pakai?",options:["Kapal","Sepeda","Motor","Kereta"],answer:"Kapal"},
+{q:"Barang dari luar disebut?",options:["Impor","Ekspor","Produksi","Distribusi"],answer:"Impor"},
+{q:"Barang keluar negeri disebut?",options:["Ekspor","Impor","Produksi","Distribusi"],answer:"Ekspor"},
+{q:"VOC didirikan tahun?",options:["1602","1900","1700","1800"],answer:"1602"},
+{q:"Perdagangan terjadi karena?",options:["Kebutuhan","Kemalasan","Liburan","Hiburan"],answer:"Kebutuhan"},
+{q:"Kerajaan maritim kuat di?",options:["Laut","Gunung","Hutan","Sawah"],answer:"Laut"},
+{q:"Sriwijaya pusat belajar agama?",options:["Buddha","Islam","Kristen","Hindu"],answer:"Buddha"},
+{q:"Perdagangan mempertemukan?",options:["Budaya","Hutan","Gunung","Sawah"],answer:"Budaya"},
+{q:"Rempah membuat Nusantara?",options:["Terkenal","Tertutup","Kosong","Sepi"],answer:"Terkenal"}
+];
+
+const questionsLevel3 = [
+{q:"Teori Brahmana disebarkan oleh?",options:["Pendeta","Pedagang","Prajurit","Petani"],answer:"Pendeta"},
+{q:"Teori Ksatria oleh?",options:["Prajurit","Pendeta","Petani","Pedagang"],answer:"Prajurit"},
+{q:"Teori Waisya oleh?",options:["Pedagang","Petani","Pendeta","Rakyat"],answer:"Pedagang"},
+{q:"Bahasa prasasti Hindu-Buddha?",options:["Sansakerta","Indonesia","Arab","Belanda"],answer:"Sansakerta"},
+{q:"Kerajaan Hindu tertua?",options:["Kutai","Demak","Mataram","Sriwijaya"],answer:"Kutai"},
+{q:"Prasasti Yupa berasal dari?",options:["Kutai","Majapahit","Demak","Sriwijaya"],answer:"Kutai"},
+{q:"Agama Buddha berkembang di?",options:["Sriwijaya","Demak","Mataram","Banten"],answer:"Sriwijaya"},
+{q:"Kitab Weda milik agama?",options:["Hindu","Islam","Kristen","Buddha"],answer:"Hindu"},
+{q:"Candi Borobudur bercorak?",options:["Buddha","Hindu","Islam","Kristen"],answer:"Buddha"},
+{q:"Candi Prambanan bercorak?",options:["Hindu","Buddha","Islam","Kristen"],answer:"Hindu"},
+{q:"Raja terkenal Kutai?",options:["Mulawarman","Hayam Wuruk","Raden Patah","Gajah Mada"],answer:"Mulawarman"},
+{q:"Sriwijaya pusat agama?",options:["Buddha","Hindu","Islam","Kristen"],answer:"Buddha"},
+{q:"Teori Arus Balik menyatakan?",options:["Orang Indonesia belajar ke India","India datang","Arab datang","Eropa datang"],answer:"Orang Indonesia belajar ke India"},
+{q:"Agama Hindu mengenal kasta?",options:["Ya","Tidak","Tidak tahu","Mungkin"],answer:"Ya"},
+{q:"Kitab suci Buddha?",options:["Tripitaka","Weda","Alquran","Injil"],answer:"Tripitaka"},
+{q:"Majapahit bercorak?",options:["Hindu","Buddha","Islam","Kristen"],answer:"Hindu"},
+{q:"Prasasti adalah?",options:["Tulisan batu","Bangunan","Kitab","Patung"],answer:"Tulisan batu"},
+{q:"Bukti teori Waisya?",options:["Perdagangan","Perang","Pertanian","Migrasi"],answer:"Perdagangan"},
+{q:"Agama Buddha masuk abad?",options:["5","15","20","1"],answer:"5"},
+{q:"Hindu berasal dari?",options:["India","Arab","China","Eropa"],answer:"India"},
+{q:"Buddha berasal dari?",options:["India","Arab","China","Eropa"],answer:"India"},
+{q:"Candi adalah tempat?",options:["Ibadah","Pasar","Sekolah","Istana"],answer:"Ibadah"},
+{q:"Teori Brahmana didukung karena?",options:["Upacara rumit","Perdagangan","Perang","Migrasi"],answer:"Upacara rumit"},
+{q:"Kerajaan Tarumanegara bercorak?",options:["Hindu","Buddha","Islam","Kristen"],answer:"Hindu"},
+{q:"Raja terkenal Majapahit?",options:["Hayam Wuruk","Mulawarman","Raden Patah","Sultan Agung"],answer:"Hayam Wuruk"},
+{q:"Kitab Negarakertagama menceritakan?",options:["Majapahit","Kutai","Demak","Sriwijaya"],answer:"Majapahit"},
+{q:"Pengaruh Hindu terlihat pada?",options:["Sistem kasta","Bahasa Arab","Huruf Latin","Teknologi modern"],answer:"Sistem kasta"},
+{q:"Teori Ksatria karena?",options:["Penaklukan","Perdagangan","Upacara","Migrasi"],answer:"Penaklukan"},
+{q:"Bukti arkeologi Hindu?",options:["Candi","Masjid","Gereja","Sekolah"],answer:"Candi"},
+{q:"Masuknya budaya India membawa?",options:["Aksara dan agama","Internet","Mobil","Pesawat"],answer:"Aksara dan agama"}
+];
+function startGame(){
+player=document.getElementById("playerName").value;
+if(player===""){
+alert("Isi nama lengkap dulu.");
+return;
 }
-
-for(let row=0; row<5; row++){
-    let rowTiles = numbers.slice(row*6, row*6+6);
-    if(row % 2 === 1){
-        rowTiles.reverse();
-    }
-    rowTiles.forEach(num=>{
-        let tile = document.createElement("div");
-        tile.className="tile";
-        tile.id="tile"+num;
-        tile.innerText=num;
-        board.appendChild(tile);
-    });
-}
-
-// Tambah player awal
+document.getElementById("loginBox").style.display="none";
+document.getElementById("gameArea").style.display="block";
+createBoard();
 updatePlayer();
+}
 
-// Tangga & Ular
-const ladders = {3:11, 8:17, 15:24};
-const snakes = {14:5, 22:9, 29:18};
+function createBoard(){
+const board=document.getElementById("board");
+board.innerHTML="";
+let numbers=[];
+for(let i=30;i>=1;i--) numbers.push(i);
 
-// Bank soal sederhana
-const questions = {
-3:{q:"SDA yang dapat diperbarui disebut?",a:"hayati"},
-7:{q:"Contoh SDA tidak terbarukan?",a:"minyak bumi"},
-12:{q:"Komoditas utama Nusantara?",a:"rempah-rempah"},
-18:{q:"Teori Brahmana disebarkan oleh?",a:"pendeta"},
-25:{q:"Mengapa Indonesia strategis?",a:"jalur rempah"}
-};
+for(let row=0;row<5;row++){
+let rowTiles=numbers.slice(row*6,row*6+6);
+if(row%2===1) rowTiles.reverse();
+rowTiles.forEach(num=>{
+let tile=document.createElement("div");
+tile.className="tile";
+tile.id="tile"+num;
+tile.innerText=num;
+board.appendChild(tile);
+});
+}
+}
 
 function rollDice(){
-    let dice = Math.floor(Math.random()*6)+1;
-    position += dice;
+let dice=Math.floor(Math.random()*6)+1;
+position+=dice;
+if(position>30) position=30;
 
-    if(position>30) position=30;
+checkTile();
+updatePlayer();
 
-    checkTile();
-    updatePlayer();
-
-    if(position===30){
-        alert("Selamat! Kamu menang dengan skor "+score);
-    }
+if(position===30){
+saveScore();
+alert("Selesai! Skor akhir: "+score);
+}
 }
 
 function checkTile(){
 
-    if(ladders[position]){
-        alert("Naik tangga!");
-        position = ladders[position];
-    }
+if(ladders[position]){
+alert("Naik Tangga!");
+position=ladders[position];
+}
 
-    if(snakes[position]){
-        alert("Digigit ular!");
-        position = snakes[position];
-    }
+if(snakes[position]){
+alert("Digigit Ular!");
+position=snakes[position];
+}
 
-    if(questions[position]){
-        let userAnswer = prompt(questions[position].q);
-        if(userAnswer && userAnswer.toLowerCase() === questions[position].a){
-            alert("Benar!");
-            score +=10;
-        }else{
-            alert("Salah! Turun 2 langkah.");
-            position -=2;
-            if(position<1) position=1;
-            score -=5;
-        }
-    }
+showQuestion();
+}
 
-    document.getElementById("score").innerText = score;
+function showQuestion(){
+let randomQ=questions[Math.floor(Math.random()*questions.length)];
+
+document.getElementById("questionText").innerText=randomQ.q;
+let optionsDiv=document.getElementById("options");
+optionsDiv.innerHTML="";
+
+randomQ.options.forEach(opt=>{
+let btn=document.createElement("div");
+btn.className="option";
+btn.innerText=opt;
+btn.onclick=function(){
+clearInterval(timerInterval);
+if(opt===randomQ.answer){
+score+=10;
+}else{
+position-=2;
+if(position<1) position=1;
+score-=5;
+}
+closeModal();
+updatePlayer();
+};
+optionsDiv.appendChild(btn);
+});
+
+document.getElementById("questionModal").style.display="flex";
+startTimer();
+}
+
+function startTimer(){
+timeLeft=15;
+document.getElementById("timer").innerText="Waktu: "+timeLeft+" detik";
+
+timerInterval=setInterval(()=>{
+timeLeft--;
+document.getElementById("timer").innerText="Waktu: "+timeLeft+" detik";
+
+if(timeLeft<=0){
+clearInterval(timerInterval);
+position-=2;
+if(position<1) position=1;
+score-=5;
+closeModal();
+updatePlayer();
+}
+},1000);
+}
+
+function closeModal(){
+document.getElementById("questionModal").style.display="none";
+document.getElementById("score").innerText=score;
 }
 
 function updatePlayer(){
-    document.querySelectorAll(".player").forEach(p=>p.remove());
-    let player = document.createElement("div");
-    player.className="player";
-    document.getElementById("tile"+position).appendChild(player);
-    document.getElementById("pos").innerText = position;
+document.querySelectorAll(".player").forEach(p=>p.remove());
+let playerDot=document.createElement("div");
+playerDot.className="player";
+document.getElementById("tile"+position).appendChild(playerDot);
+document.getElementById("pos").innerText=position;
 }
+
+function saveScore(){
+let leaderboard=JSON.parse(localStorage.getItem("ipsLeaderboard"))||[];
+leaderboard.push({name:player,score:score});
+leaderboard.sort((a,b)=>b.score-a.score);
+localStorage.setItem("ipsLeaderboard",JSON.stringify(leaderboard));
+loadLeaderboard();
+}
+
+function loadLeaderboard(){
+let leaderboard=JSON.parse(localStorage.getItem("ipsLeaderboard"))||[];
+let list=document.getElementById("leaderList");
+list.innerHTML="";
+leaderboard.slice(0,5).forEach(item=>{
+let li=document.createElement("li");
+li.innerText=item.name+" - "+item.score;
+list.appendChild(li);
+});
+}
+
+loadLeaderboard();
 
 </script>
 
