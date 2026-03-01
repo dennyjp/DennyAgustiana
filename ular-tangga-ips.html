@@ -314,7 +314,17 @@ showQuestion();
 }
 
 function showQuestion(){
-let randomQ=questions[Math.floor(Math.random()*questions.length)];
+let pool;
+
+if(position <=10){
+pool = questionsLevel1;
+}else if(position <=20){
+pool = questionsLevel2;
+}else{
+pool = questionsLevel3;
+}
+
+let randomQ = pool[Math.floor(Math.random()*pool.length)];
 
 document.getElementById("questionText").innerText=randomQ.q;
 let optionsDiv=document.getElementById("options");
